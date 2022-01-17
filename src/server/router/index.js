@@ -41,7 +41,13 @@ module.exports = (db, opts) => {
 
   // Expose render
   router.render = (req, res) => {
-    res.jsonp(res.locals.data)
+    // if it's a GET request and result is an Array
+    if (req.method === 'GET' && Array.isArray(res.locals.data)) {
+      res.json({
+        totalCount: res.get('X-Total-Count'),
+        items: res.locals.data,
+      })
+    }
   }
 
   // GET /db
