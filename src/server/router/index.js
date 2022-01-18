@@ -47,6 +47,8 @@ module.exports = (db, opts) => {
         totalCount: res.get('X-Total-Count'),
         items: res.locals.data,
       })
+    } else {
+      res.jsonp(res.locals.data)
     }
   }
 
